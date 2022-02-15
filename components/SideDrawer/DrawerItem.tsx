@@ -27,9 +27,7 @@ const DrawerItemContainer = styled(Stack)<DrawerItemContainerProps>`
 
   &:hover {
     background-color: ${(props: DrawerItemContainerProps) =>
-      props.selected
-        ? alpha(props.theme.palette.primary.main, 0.1)
-        : props.theme.palette.customBackground.main};
+      props.selected ? alpha(props.theme.palette.primary.main, 0.1) : 'gray'};
   }
 `;
 
