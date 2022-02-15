@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  whm:
+    build: .
+    container_name: whm
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+    ports:
+      - 3000:3000
