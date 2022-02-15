@@ -8,6 +8,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/server": "latest",
+    "@emotion/styled": "latest",
+    "@fontsource/poppins": "^4.5.1",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
     "next": "12.0.10",
     "react": "17.0.2",
     "react-dom": "17.0.2"
