@@ -6,6 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../src/theme';
 import createEmotionCache from '../src/createEmotionCache';
+import NextNProgress from 'nextjs-progressbar';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -23,6 +24,7 @@ export default function MyApp(props: MyAppProps) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
+        <NextNProgress />
         <Component {...pageProps} />
       </ThemeProvider>
     </CacheProvider>

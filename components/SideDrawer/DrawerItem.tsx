@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { SvgIconComponent } from '@mui/icons-material';
-import { alpha, Stack, Theme, Typography, useTheme } from '@mui/material';
+import { alpha, Button, ButtonProps, useTheme } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
@@ -13,22 +13,19 @@ export type DrawerItemProps = {
   route: string;
 };
 
-export type DrawerItemContainerProps = {
+export type DrawerMenuButtonProps = ButtonProps & {
   selected: boolean;
-  theme: Theme;
 };
 
-const DrawerItemContainer = styled(Stack)<DrawerItemContainerProps>`
-  padding: 12px 16px;
-  background-color: ${(props: DrawerItemContainerProps) =>
-    alpha(props.theme.palette.primary.main, props.selected ? 0.1 : 0.0)};
-  border-radius: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${(props: DrawerItemContainerProps) =>
-      props.selected ? alpha(props.theme.palette.primary.main, 0.1) : 'gray'};
-  }
+const ColorButton = styled(Button)<DrawerMenuButtonProps>`
+  background-color: ${({ theme, selected }) =>
+    selected ? alpha(theme.palette.primary.main, 0.2) : ''};
+  display: flex;
+  justify-content: start;
+  align-items: left;
+  padding: 12px 18px;
+  text-transform: revert;
+  border-radius: 8;
 `;
 
 const DrawerItem: React.FC<DrawerItemProps> = (props) => {
@@ -42,24 +39,14 @@ const DrawerItem: React.FC<DrawerItemProps> = (props) => {
 
   return (
     <Link href={props.route} passHref={true}>
-      <DrawerItemContainer
-        theme={theme}
+      <ColorButton
         selected={selected}
-        alignItems="center"
-        direction="row"
-        spacing={2}
+        startIcon={<ColoredIcon />}
+        color={selected ? 'primary' : 'inherit'}
+        variant="text"
       >
-        <ColoredIcon />
-        <Typography
-          sx={{
-            fontSize: '14px',
-            fontWeight: selected ? 500 : 300,
-            color: selected ? theme.palette.primary.main : '',
-          }}
-        >
-          {props.text}
-        </Typography>
-      </DrawerItemContainer>
+        {props.text}
+      </ColorButton>
     </Link>
   );
 };

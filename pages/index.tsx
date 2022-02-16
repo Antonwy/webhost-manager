@@ -3,6 +3,8 @@ import type { NextPage } from 'next';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Layout from '../components/Layout';
+import Empty from '../src/assets/empty.webp';
+import Image from 'next/image';
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +19,15 @@ const Home: NextPage = () => {
           alignItems: 'center',
         }}
       >
-        <Typography>Home</Typography>
+        <Box
+          sx={{
+            width: '300px',
+            height: '300px',
+          }}
+        >
+          <Image layout="responsive" src={Empty} alt="Empty illustration" />
+        </Box>
+        <Typography>👀 Looks really empty here...</Typography>
       </Box>
     </Layout>
   );

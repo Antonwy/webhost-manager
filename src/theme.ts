@@ -6,14 +6,6 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/700.css';
 
-import { PaletteColor, PaletteColorOptions } from '@mui/material';
-
-declare module '@mui/material/styles' {
-  interface PaletteOptions {
-    customBackground?: PaletteColorOptions;
-  }
-}
-
 // Create a theme instance.
 const theme = createTheme({
   typography: {
