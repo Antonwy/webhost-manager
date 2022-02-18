@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material/styles';
 import {
   PaletteOptions,
-  TypeBackground,
+  SimplePaletteColorOptions,
 } from '@mui/material/styles/createPalette';
 
 // ----------------------------------------------------------------------
@@ -11,42 +11,42 @@ const createGradient = (color1: string, color2: string) => {
 };
 
 // SETUP COLORS
-const PRIMARY = {
+const PRIMARY: SimplePaletteColorOptions = {
   lighter: '#C8FACD',
   light: '#5BE584',
   main: '#00AB55',
   dark: '#007B55',
   darker: '#005249',
 };
-const SECONDARY = {
+const SECONDARY: SimplePaletteColorOptions = {
   lighter: '#D6E4FF',
   light: '#84A9FF',
   main: '#3366FF',
   dark: '#1939B7',
   darker: '#091A7A',
 };
-const INFO = {
+const INFO: SimplePaletteColorOptions = {
   lighter: '#D0F2FF',
   light: '#74CAFF',
   main: '#1890FF',
   dark: '#0C53B7',
   darker: '#04297A',
 };
-const SUCCESS = {
+const SUCCESS: SimplePaletteColorOptions = {
   lighter: '#E9FCD4',
   light: '#AAF27F',
   main: '#54D62C',
   dark: '#229A16',
   darker: '#08660D',
 };
-const WARNING = {
+const WARNING: SimplePaletteColorOptions = {
   lighter: '#FFF7CD',
   light: '#FFE16A',
   main: '#FFC107',
   dark: '#B78103',
   darker: '#7A4F01',
 };
-const ERROR = {
+const ERROR: SimplePaletteColorOptions = {
   lighter: '#FFE7D9',
   light: '#FFA48D',
   main: '#FF4842',
@@ -76,11 +76,11 @@ const GREY = {
 };
 
 const GRADIENTS = {
-  primary: createGradient(PRIMARY.light, PRIMARY.main),
-  info: createGradient(INFO.light, INFO.main),
-  success: createGradient(SUCCESS.light, SUCCESS.main),
-  warning: createGradient(WARNING.light, WARNING.main),
-  error: createGradient(ERROR.light, ERROR.main),
+  primary: createGradient(PRIMARY.light!, PRIMARY.main),
+  info: createGradient(INFO.light!, INFO.main),
+  success: createGradient(SUCCESS.light!, SUCCESS.main),
+  warning: createGradient(WARNING.light!, WARNING.main),
+  error: createGradient(ERROR.light!, ERROR.main),
 };
 
 const CHART_COLORS = {
@@ -123,14 +123,14 @@ const palette: {
     mode: 'light',
     text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
     background: { paper: '#fff', default: '#fff', neutral: GREY[200] },
-    action: { active: GREY[600], ...COMMON.action },
+    action: { active: GREY[600], ...COMMON },
   },
   dark: {
     ...COMMON,
     mode: 'dark',
     text: { primary: '#fff', secondary: GREY[500], disabled: GREY[600] },
     background: { paper: GREY[800], default: GREY[900], neutral: GREY[500_16] },
-    action: { active: GREY[500], ...COMMON.action },
+    action: { active: GREY[500], ...COMMON },
   },
 };
 
