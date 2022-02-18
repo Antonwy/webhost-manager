@@ -6,5 +6,14 @@ services:
     environment:
       - PORT=3000
       - NODE_ENV=production
+      - VIRTUAL_HOST=antonwy.me
+      - VIRTUAL_PORT=3000
     ports:
       - 3000:3000
+    networks:
+        - reverse-proxy-net
+
+networks:
+  reverse-proxy-net:
+    name: reverse-proxy-net
+    external: true

@@ -6,8 +6,8 @@ import { removeStackHandler } from './handlers/stacks/removeStack';
 
 axios.defaults.baseURL =
   process.env.NODE_ENV == 'production'
-    ? 'http://38.242.207.229:3001/api/v1'
-    : 'http://localhost:3001/api/v1';
+    ? 'http://api.antonwy.me/v1'
+    : 'http://api.antonwy.me/v1';
 
 export namespace API {
   export const getContainers = getContainersHandler;

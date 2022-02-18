@@ -20,9 +20,13 @@ import StackItem from '../../components/websites/StackItem';
 import { createContext, useState } from 'react';
 
 export const getServerSideProps = async (context: AppContext) => {
-  const data = await API.getStacks();
-
-  return { props: { data: data } };
+  try {
+    const data = await API.getStacks();
+    return { props: { data: data } };
+  } catch (error) {
+    console.log(error);
+    return { props: { data: [] } };
+  }
 };
 
 type WebsitesProps = {
