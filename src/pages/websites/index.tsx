@@ -18,16 +18,17 @@ import StackModel from '../../models/stack';
 import { API } from '../../api/API';
 import StackItem from '../../components/websites/StackItem';
 import { createContext, useState } from 'react';
+import useSWR from 'swr';
 
-export const getServerSideProps = async (context: AppContext) => {
-  try {
-    const data = await API.getStacks();
-    return { props: { data: data } };
-  } catch (error) {
-    console.log(error);
-    return { props: { data: [] } };
-  }
-};
+// export const getServerSideProps = async (context: AppContext) => {
+//   try {
+//     const data = await API.getStacks();
+//     return { props: { data: data } };
+//   } catch (error) {
+//     console.log(error);
+//     return { props: { data: [] } };
+//   }
+// };
 
 type WebsitesProps = {
   data: StackModel[];
@@ -52,12 +53,12 @@ type WebsitesSnackBarContextType = (config: WebsitesSnackBarConfig) => void;
 export const WebsitesSnackBarContext =
   createContext<WebsitesSnackBarContextType>((_) => {});
 
-const Websites: NextPage<WebsitesProps> = ({ data }) => {
+const Websites: NextPage = () => {
   const [openCreateModal, setOpenCreateModal] = React.useState(false);
   const handleOpenCreateModal = () => setOpenCreateModal(true);
   const handleCloseCreateModal = () => setOpenCreateModal(false);
 
-  const [websites, setWebsites] = useState<StackModel[]>(data);
+  const { stacks, loading, error, reload } = API.useGetStacks();
 
   const [snackBarConfig, setSnackBarConfig] = useState<WebsitesSnackBarConfig>(
     defaultSnackbarConfig
@@ -70,23 +71,9 @@ const Websites: NextPage<WebsitesProps> = ({ data }) => {
   };
   const handleCloseSnackBar = () => setShowSnackBar(false);
 
-  const reloadWebsites = async () => {
-    try {
-      const data = await API.getStacks();
-
-      setWebsites(data);
-    } catch (error) {
-      console.log(error);
-      handleOpenSnackBar({
-        message: "Couldn't reload websites!",
-        severity: 'error',
-      });
-    }
-  };
-
   return (
     <Layout>
-      <ReloadWebsitesContext.Provider value={reloadWebsites}>
+      <ReloadWebsitesContext.Provider value={reload}>
         <WebsitesSnackBarContext.Provider value={handleOpenSnackBar}>
           <Box
             sx={{
@@ -101,7 +88,7 @@ const Websites: NextPage<WebsitesProps> = ({ data }) => {
               alignItems="center"
             >
               <Typography variant="h5" component="h1">
-                Websites ({websites.length})
+                Websites ({stacks.length})
               </Typography>
               <Button
                 onClick={handleOpenCreateModal}
@@ -116,7 +103,7 @@ const Websites: NextPage<WebsitesProps> = ({ data }) => {
               />
             </Stack>
             <Grid container spacing={2} sx={{ width: '100%' }}>
-              {websites?.map((stack) => (
+              {stacks.map((stack) => (
                 <Grid key={stack.id} item>
                   <StackItem stack={stack}></StackItem>
                 </Grid>
