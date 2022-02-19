@@ -34,13 +34,13 @@ const StackItem: React.FC<StackItemProps> = ({ stack }) => {
       if (axios.isAxiosError(err)) {
         return showSnackBar({
           message: err.response?.data.message ?? 'Internal API Error',
-          severity: 'success',
+          severity: 'error',
         });
       }
 
       showSnackBar({
         message: 'Internal API Error',
-        severity: 'success',
+        severity: 'error',
       });
     }
   };

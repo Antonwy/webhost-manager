@@ -71,9 +71,17 @@ const Websites: NextPage<WebsitesProps> = ({ data }) => {
   const handleCloseSnackBar = () => setShowSnackBar(false);
 
   const reloadWebsites = async () => {
-    const data = await API.getStacks();
+    try {
+      const data = await API.getStacks();
 
-    setWebsites(data);
+      setWebsites(data);
+    } catch (error) {
+      console.log(error);
+      handleOpenSnackBar({
+        message: "Couldn't reload websites!",
+        severity: 'error',
+      });
+    }
   };
 
   return (
