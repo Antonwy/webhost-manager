@@ -3,4 +3,5 @@ export default interface Stack {
   name: string;
   network_name: string;
   type: 'WordPress' | 'Single';
+  url: string;
 }

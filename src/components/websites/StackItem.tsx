@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Card, Stack, Typography } from '@mui/material';
+import { Card, Link, Stack, Typography } from '@mui/material';
 import WordPressIcon from '../../assets/icons/wordpress.svg';
 import Image from 'next/image';
 import StackModel from '../../models/stack';
@@ -45,6 +45,8 @@ const StackItem: React.FC<StackItemProps> = ({ stack }) => {
     }
   };
 
+  const url = 'http://' + stack.url;
+
   return (
     <StackItemContainer>
       <Stack direction="row" spacing={1} alignItems="center">
@@ -52,7 +54,10 @@ const StackItem: React.FC<StackItemProps> = ({ stack }) => {
         <Typography variant="h6">{stack.name}</Typography>
       </Stack>
       <Typography variant="caption">
-        <b>Type:</b> {stack.type}
+        URL:&nbsp;
+        <Link target="_blank" href={url}>
+          <b>{stack.url}</b>
+        </Link>
       </Typography>
       <Stack
         direction="row"

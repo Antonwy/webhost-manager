@@ -10,7 +10,7 @@ export const createWordpressHandler = async (
   try {
     const res = await axios.post<ApiResponse<Stack>>('/wordpress', {
       name: config.name,
-      port: config.port,
+      url: config.url,
       db_username: config.dbUsername,
       db_password: config.dbPassword,
     });

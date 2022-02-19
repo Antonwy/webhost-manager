@@ -26,9 +26,9 @@ type CreateWebsiteModalProps = {
 
 const defaultValues: CreateWordPressInput = {
   name: '',
+  url: '',
   dbUsername: 'admin',
   dbPassword: '',
-  port: '40000',
 };
 
 const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
@@ -87,6 +87,14 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
               onChange={handleInputChange}
               required
             />
+            <TextField
+              name="url"
+              label="URL"
+              placeholder="antonwy.me"
+              value={formValues.url}
+              onChange={handleInputChange}
+              required
+            />
             <DialogContentText variant="body1" component="p">
               Database Info:
             </DialogContentText>
@@ -108,18 +116,6 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
                 required
               />
             </Stack>
-
-            <DialogContentText variant="body1" component="p">
-              Network Info:
-            </DialogContentText>
-            <TextField
-              name="port"
-              label="Port"
-              type="number"
-              value={formValues.port}
-              onChange={handleInputChange}
-              required
-            />
           </Stack>
         </DialogContent>
 
