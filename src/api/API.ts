@@ -6,8 +6,8 @@ import useGetStacksHook from './hooks/stacks/useGetStacksHook';
 
 axios.defaults.baseURL =
   process.env.NODE_ENV == 'production'
-    ? 'http://api.antonwy.me/v1'
-    : 'http://api.antonwy.me/v1';
+    ? 'https://api.antonwy.me/v1'
+    : 'https://api.antonwy.me/v1';
 
 export namespace API {
   export const fetcher = (url: string) =>

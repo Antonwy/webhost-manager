@@ -11,7 +11,6 @@ import {
   DialogContentText,
   Checkbox,
   FormControlLabel,
-  FormGroup,
   Collapse,
 } from '@mui/material';
 import { useContext, useState } from 'react';
@@ -125,13 +124,7 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
               />
             </Stack>
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={useSSL}
-                  onChange={handleUseSSL}
-                  defaultChecked
-                />
-              }
+              control={<Checkbox checked={useSSL} onChange={handleUseSSL} />}
               label="Use SSL?"
             />
             <Collapse in={useSSL} unmountOnExit>
