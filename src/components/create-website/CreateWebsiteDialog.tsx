@@ -85,7 +85,7 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
       <form onSubmit={onSubmit}>
         <DialogTitle>Create Website</DialogTitle>
         <DialogContent sx={{ mt: 2, pt: 1 }}>
-          <Stack spacing={2}>
+          <Stack style={{ marginTop: 6 }} spacing={2}>
             <TextField
               name="name"
               label="Name"

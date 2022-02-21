@@ -1,12 +1,5 @@
 import styled from '@emotion/styled';
-import {
-  Home,
-  Menu,
-  Person,
-  Public,
-  Search,
-  Settings,
-} from '@mui/icons-material';
+import { Dns, Home, Menu, Person, Public, Search } from '@mui/icons-material';
 import {
   AppBar,
   Box,
@@ -43,6 +36,7 @@ const PaddedUserContainer = styled.div`
 const drawerItems: DrawerItemProps[] = [
   { text: 'Home', icon: Home, route: '/' },
   { text: 'Websites', icon: Public, route: '/websites' },
+  { text: 'DNS', icon: Dns, route: '/dns' },
 ];
 
 const Layout: React.FC = (props) => {
