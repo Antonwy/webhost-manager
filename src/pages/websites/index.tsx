@@ -30,10 +30,6 @@ import useSWR from 'swr';
 //   }
 // };
 
-type WebsitesProps = {
-  data: StackModel[];
-};
-
 type ReloadWebsitesContextType = () => void;
 export const ReloadWebsitesContext = createContext<ReloadWebsitesContextType>(
   () => {}
