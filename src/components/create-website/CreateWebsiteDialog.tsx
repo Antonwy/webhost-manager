@@ -9,6 +9,10 @@ import {
   DialogContent,
   DialogActions,
   DialogContentText,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Collapse,
 } from '@mui/material';
 import { useContext, useState } from 'react';
 import { API } from '../../api/API';
@@ -37,6 +41,7 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
 }) => {
   const [formValues, setFormValues] = useState(defaultValues);
   const [loading, setLoading] = useState(false);
+  const [useSSL, setUseSSL] = useState(false);
   const reloadWebsites = useContext(ReloadWebsitesContext);
   const showSnackBar = useContext(WebsitesSnackBarContext);
 
@@ -47,6 +52,9 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
       [name]: value,
     });
   };
+
+  const handleUseSSL = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setUseSSL(e.target.checked);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -116,6 +124,27 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
                 required
               />
             </Stack>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={useSSL}
+                  onChange={handleUseSSL}
+                  defaultChecked
+                />
+              }
+              label="Use SSL?"
+            />
+            <Collapse in={useSSL} unmountOnExit>
+              <TextField
+                name="sslEmail"
+                label="Email"
+                placeholder="Email"
+                type="email"
+                value={formValues.sslEmail}
+                onChange={handleInputChange}
+                required
+              />
+            </Collapse>
           </Stack>
         </DialogContent>
 
