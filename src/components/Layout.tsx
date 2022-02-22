@@ -1,5 +1,13 @@
 import styled from '@emotion/styled';
-import { Dns, Home, Menu, Person, Public, Search } from '@mui/icons-material';
+import {
+  Dns,
+  Home,
+  Menu,
+  Person,
+  PowerSettingsNew,
+  Public,
+  Search,
+} from '@mui/icons-material';
 import {
   AppBar,
   Box,
@@ -17,6 +25,8 @@ import DrawerItem, { DrawerItemProps } from './side-drawer/DrawerItem';
 import UserContainer from './UserContainer';
 import logo from '../assets/logo.svg';
 import { useTheme } from '@mui/system';
+import { API } from '../api/API';
+import { useRouter } from 'next/router';
 
 export const drawerWidth = 300;
 
@@ -42,9 +52,20 @@ const drawerItems: DrawerItemProps[] = [
 const Layout: React.FC = (props) => {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      const res = await API.signOut();
+      console.log(res);
+      router.push('/auth');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const drawer = (
@@ -112,8 +133,8 @@ const Layout: React.FC = (props) => {
               </IconButton>
             </div>
             <div>
-              <IconButton>
-                <Person />
+              <IconButton color="warning" onClick={handleSignOut}>
+                <PowerSettingsNew />
               </IconButton>
             </div>
           </Stack>

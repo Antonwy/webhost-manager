@@ -40,7 +40,6 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
 }) => {
   const [formValues, setFormValues] = useState(defaultValues);
   const [loading, setLoading] = useState(false);
-  const [useSSL, setUseSSL] = useState(false);
   const reloadWebsites = useContext(ReloadWebsitesContext);
   const showSnackBar = useContext(WebsitesSnackBarContext);
 
@@ -51,9 +50,6 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
       [name]: value,
     });
   };
-
-  const handleUseSSL = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setUseSSL(e.target.checked);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -5,31 +5,34 @@ import Box from '@mui/material/Box';
 import Layout from '../components/Layout';
 import Empty from '../assets/empty.webp';
 import Image from 'next/image';
+import RequiresAuthentication from '../components/RequiresAuthentication';
 
 const Home: NextPage = () => {
   return (
-    <Layout>
-      <Box
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+    <RequiresAuthentication>
+      <Layout>
         <Box
           sx={{
-            width: '300px',
-            height: '300px',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          <Image layout="responsive" src={Empty} alt="Empty illustration" />
+          <Box
+            sx={{
+              width: '300px',
+              height: '300px',
+            }}
+          >
+            <Image layout="responsive" src={Empty} alt="Empty illustration" />
+          </Box>
+          <Typography>👀 Looks really empty here...</Typography>
         </Box>
-        <Typography>👀 Looks really empty here...</Typography>
-      </Box>
-    </Layout>
+      </Layout>
+    </RequiresAuthentication>
   );
 };
 

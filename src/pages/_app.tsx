@@ -13,7 +13,24 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import SuperTokens from 'supertokens-auth-react/lib/build/superTokens';
+import EmailPassword from 'supertokens-auth-react/recipe/emailpassword';
+import Session from 'supertokens-auth-react/recipe/session';
+
 const clientSideEmotionCache = createEmotionCache();
+
+if (typeof window !== 'undefined') {
+  SuperTokens.init({
+    appInfo: {
+      appName: 'WHM',
+      apiDomain: 'http://localhost:3001',
+      websiteDomain: 'http://localhost:3000',
+      apiBasePath: '/v1/auth',
+      websiteBasePath: '/auth',
+    },
+    recipeList: [EmailPassword.init(), Session.init()],
+  });
+}
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
