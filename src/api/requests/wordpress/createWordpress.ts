@@ -3,5 +3,4 @@ export type CreateWordPressInput = {
   url: string;
   dbUsername: string;
   dbPassword: string;
-  sslEmail?: string;
 };

@@ -123,21 +123,6 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
                 required
               />
             </Stack>
-            <FormControlLabel
-              control={<Checkbox checked={useSSL} onChange={handleUseSSL} />}
-              label="Use SSL?"
-            />
-            <Collapse in={useSSL} unmountOnExit>
-              <TextField
-                name="sslEmail"
-                label="Email"
-                placeholder="Email"
-                type="email"
-                value={formValues.sslEmail}
-                onChange={handleInputChange}
-                required
-              />
-            </Collapse>
           </Stack>
         </DialogContent>
 
