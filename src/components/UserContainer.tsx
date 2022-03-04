@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Avatar, Paper, Stack, Typography } from '@mui/material';
 import * as React from 'react';
+import { API } from '../api/API';
 
 const Username = styled(Typography)`
   font-weight: 600;
@@ -12,6 +13,8 @@ const AccountType = styled(Typography)`
 `;
 
 const UserContainer = () => {
+  const { user } = API.useUser();
+
   return (
     <Paper
       sx={{
@@ -25,7 +28,7 @@ const UserContainer = () => {
         <Avatar />
         <Stack>
           <Username variant="body1" color="text.primary">
-            Antonwy
+            {user.name ?? 'Loading'}
           </Username>
           <AccountType variant="body2" color="text.secondary">
             Admin

@@ -9,18 +9,13 @@ import {
   DialogContent,
   DialogActions,
   DialogContentText,
-  Checkbox,
-  FormControlLabel,
-  Collapse,
 } from '@mui/material';
 import { useContext, useState } from 'react';
 import { API } from '../../api/API';
 import { CreateWordPressInput } from '../../api/requests/wordpress/createWordpress';
 import { ApiError } from '../../api/responses/apiError';
-import {
-  ReloadWebsitesContext,
-  WebsitesSnackBarContext,
-} from '../../pages/websites';
+import { ReloadWebsitesContext } from '../../pages/websites';
+import { useSnackbar } from '../SnackbarProvider';
 
 type CreateWebsiteModalProps = {
   open: boolean;
@@ -41,7 +36,7 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
   const [formValues, setFormValues] = useState(defaultValues);
   const [loading, setLoading] = useState(false);
   const reloadWebsites = useContext(ReloadWebsitesContext);
-  const showSnackBar = useContext(WebsitesSnackBarContext);
+  const snackbar = useSnackbar();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,12 +54,12 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
       const res = await API.createWordPressSite(formValues);
       reloadWebsites();
       handleClose();
-      showSnackBar({ message: res.message, severity: 'success' });
+      snackbar.success(res.message);
     } catch (err) {
       if (err instanceof ApiError) {
-        showSnackBar({ message: err.message, severity: 'error' });
+        snackbar.error(err.message);
       } else {
-        showSnackBar({ message: 'Internal Error', severity: 'error' });
+        snackbar.error('Internal Error');
       }
     }
 

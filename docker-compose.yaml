@@ -8,6 +8,8 @@ services:
       - NODE_ENV=production
       - VIRTUAL_HOST=antonwy.me
       - VIRTUAL_PORT=3000
+      - NEXT_PUBLIC_API_URL=https://api.antonwy.me
+      - NEXT_PUBLIC_WEBSITE_URL=https://antonwy.me
     ports:
       - 3000:3000
     networks:

@@ -16,6 +16,8 @@ import '@fontsource/roboto/700.css';
 import SuperTokens from 'supertokens-auth-react/lib/build/superTokens';
 import EmailPassword from 'supertokens-auth-react/recipe/emailpassword';
 import Session from 'supertokens-auth-react/recipe/session';
+import { config } from '../utils/config';
+import SnackbarProvider from '../components/SnackbarProvider';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -23,8 +25,8 @@ if (typeof window !== 'undefined') {
   SuperTokens.init({
     appInfo: {
       appName: 'WHM',
-      apiDomain: 'https://api.antonwy.me',
-      websiteDomain: 'https://antonwy.me',
+      apiDomain: config.apiUrl,
+      websiteDomain: process.env.WEBSITE_URL ?? 'http://localhost:3000',
       apiBasePath: '/v1/auth',
       websiteBasePath: '/auth',
     },
@@ -51,7 +53,9 @@ export default function MyApp(props: MyAppProps) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <NextNProgress color={t.palette.primary.main} />
-        <Component {...pageProps} />
+        <SnackbarProvider>
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </ThemeProvider>
     </CacheProvider>
   );

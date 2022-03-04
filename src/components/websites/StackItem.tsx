@@ -6,11 +6,9 @@ import StackModel from '../../models/stack';
 import { useContext } from 'react';
 import { API } from '../../api/API';
 import DeleteButton from '../DeleteButton';
-import {
-  ReloadWebsitesContext,
-  WebsitesSnackBarContext,
-} from '../../pages/websites';
+import { ReloadWebsitesContext } from '../../pages/websites';
 import axios from 'axios';
+import { useSnackbar } from '../SnackbarProvider';
 
 const StackItemContainer = styled(Card)`
   padding: 18px;
@@ -23,25 +21,19 @@ type StackItemProps = {
 
 const StackItem: React.FC<StackItemProps> = ({ stack }) => {
   const reloadWebsites = useContext(ReloadWebsitesContext);
-  const showSnackBar = useContext(WebsitesSnackBarContext);
+  const snackbar = useSnackbar();
 
   const removeStack = async () => {
     try {
       const res = await API.removeStack(stack.id);
-      showSnackBar({ message: res.message, severity: 'success' });
+      snackbar.success(res.message);
       reloadWebsites();
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        return showSnackBar({
-          message: err.response?.data.message ?? 'Internal API Error',
-          severity: 'error',
-        });
+        return snackbar.error('Internal Error');
       }
 
-      showSnackBar({
-        message: 'Internal API Error',
-        severity: 'error',
-      });
+      return snackbar.error('Internal Error');
     }
   };
 

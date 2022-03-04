@@ -25,11 +25,9 @@ import { CreateDNSRecordInput } from '../../api/requests/cloudflare/createDNSRec
 import { CreateWordPressInput } from '../../api/requests/wordpress/createWordpress';
 import { ApiError } from '../../api/responses/apiError';
 import { DNSZone } from '../../models/dns_zone';
-import { RecordsSnackBarContext, ReloadRecordsContext } from '../../pages/dns';
-import {
-  ReloadWebsitesContext,
-  WebsitesSnackBarContext,
-} from '../../pages/websites';
+import { ReloadRecordsContext } from '../../pages/dns';
+import { ReloadWebsitesContext } from '../../pages/websites';
+import { useSnackbar } from '../SnackbarProvider';
 
 type CreateDNSRecordModalProps = {
   open: boolean;
@@ -66,7 +64,7 @@ const CreateDNSRecordModal: React.FC<CreateDNSRecordModalProps> = ({
   const [formValues, setFormValues] = useState(defaultValues);
   const [loading, setLoading] = useState(false);
   const reloadRecords = useContext(ReloadRecordsContext);
-  const showSnackBar = useContext(RecordsSnackBarContext);
+  const snackbar = useSnackbar();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -98,12 +96,12 @@ const CreateDNSRecordModal: React.FC<CreateDNSRecordModalProps> = ({
       const res = await API.createDNSRecord(zone.id, formValues);
       reloadRecords();
       handleClose();
-      showSnackBar({ message: res.message, severity: 'success' });
+      snackbar.success(res.message);
     } catch (err) {
       if (err instanceof ApiError) {
-        showSnackBar({ message: err.message, severity: 'error' });
+        snackbar.error(err.message);
       } else {
-        showSnackBar({ message: 'Internal Error', severity: 'error' });
+        snackbar.error('Internal Error');
       }
     }
 
