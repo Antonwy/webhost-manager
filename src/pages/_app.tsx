@@ -26,7 +26,7 @@ if (typeof window !== 'undefined') {
     appInfo: {
       appName: 'WHM',
       apiDomain: config.apiUrl,
-      websiteDomain: process.env.WEBSITE_URL ?? 'http://localhost:3000',
+      websiteDomain: config.websiteUrl,
       apiBasePath: '/v1/auth',
       websiteBasePath: '/auth',
     },
