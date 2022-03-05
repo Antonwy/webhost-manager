@@ -1,17 +1,14 @@
 import { Add, Warning } from '@mui/icons-material';
 import {
-  Alert,
   Button,
   Card,
   Chip,
   CircularProgress,
-  Fade,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
-  Snackbar,
   Stack,
   Table,
   TableBody,
@@ -29,12 +26,11 @@ import { API } from '../../api/API';
 import CreateDNSRecordModal from '../../components/create-dns-record/CreateDNSRecordDialog';
 import Layout from '../../components/Layout';
 import RequiresAuthentication from '../../components/RequiresAuthentication';
-import { DNSZone } from '../../models/dns_zone';
-
-const defaultDnsZoneIdKey = 'default_dns_zone_key';
+import { CloudflareDNSZone } from '../../models/cloudflare_dns_zone';
+import DNSZone from '../../models/dns_zone';
 
 type DNSPageProps = {
-  zones: DNSZone[];
+  zones: CloudflareDNSZone[];
 };
 
 type ReloadRecordsContextType = () => void;
@@ -42,16 +38,9 @@ export const ReloadRecordsContext = createContext<ReloadRecordsContextType>(
   () => {}
 );
 
-export const getServerSideProps = async (context: AppContext) => {
-  const res = await axios.get('/zones');
-
-  return {
-    props: { zones: res?.data?.data ?? [] },
-  };
-};
-
-const DNSPage: NextPage<DNSPageProps> = ({ zones }) => {
-  const [selectedZone, setSelectedZone] = useState<DNSZone>(zones[0]);
+const DNSPage: NextPage<DNSPageProps> = () => {
+  const { zones } = API.useZones();
+  const [selectedZone, setSelectedZone] = useState<DNSZone>();
 
   const {
     records,
@@ -59,6 +48,12 @@ const DNSPage: NextPage<DNSPageProps> = ({ zones }) => {
     error: recordsError,
     reload,
   } = API.useGetDNSRecords(selectedZone?.id);
+
+  useEffect(() => {
+    if (!selectedZone) {
+      setSelectedZone(zones[0]);
+    }
+  }, [zones]);
 
   const handleChange = (event: SelectChangeEvent) => {
     const zone = zones.find((v) => v.id === event.target.value);

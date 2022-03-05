@@ -5,15 +5,13 @@ export default function Tabs(theme) {
     MuiTab: {
       styleOverrides: {
         root: {
-          padding: 0,
           fontWeight: theme.typography.fontWeightMedium,
-          borderTopLeftRadius: theme.shape.borderRadius,
-          borderTopRightRadius: theme.shape.borderRadius,
+          padding: '0px 8px',
           '&.Mui-selected': {
             color: theme.palette.text.primary,
           },
           '&:not(:last-of-type)': {
-            marginRight: theme.spacing(5),
+            marginRight: theme.spacing(2),
           },
           '@media (min-width: 600px)': {
             minWidth: 48,
@@ -24,7 +22,6 @@ export default function Tabs(theme) {
           flexDirection: 'row',
           '& > *:first-of-type': {
             marginBottom: 0,
-            marginRight: theme.spacing(1),
           },
         },
         wrapper: {

@@ -21,7 +21,7 @@ export const createWordpressHandler = async (
     if (axios.isAxiosError(err)) {
       throw new ApiError(err.response?.data.message ?? err.message);
     } else {
-      throw new ApiError(`Couln't create WordPress site!`);
+      throw new ApiError(`Couldn't create WordPress site!`);
     }
   }
 };

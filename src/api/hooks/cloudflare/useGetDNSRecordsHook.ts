@@ -1,6 +1,5 @@
 import useSWR from 'swr';
 import { DNSRecord } from '../../../models/dns_record';
-import { DNSZone } from '../../../models/dns_zone';
 import { API } from '../../API';
 import { ApiError } from '../../responses/apiError';
 
@@ -13,7 +12,7 @@ const useGetDNSRecordsHook = (
   reload: () => Promise<DNSRecord[] | undefined>;
 } => {
   const { data, error, mutate } = useSWR(
-    zoneId ? `/zones/${zoneId}/records` : null,
+    zoneId ? `/cloudflare/zones/${zoneId}/records` : null,
     API.fetcher
   );
 

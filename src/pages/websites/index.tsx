@@ -2,23 +2,12 @@ import * as React from 'react';
 import type { NextPage } from 'next';
 import Box from '@mui/material/Box';
 import Layout from '../../components/Layout';
-import { AppContext } from 'next/app';
-import {
-  Alert,
-  Button,
-  Fade,
-  Grid,
-  Snackbar,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import CreateWebsiteModal from '../../components/create-website/CreateWebsiteDialog';
-import StackModel from '../../models/stack';
 import { API } from '../../api/API';
 import StackItem from '../../components/websites/StackItem';
-import { createContext, useState } from 'react';
-import useSWR from 'swr';
+import { createContext } from 'react';
 import RequiresAuthentication from '../../components/RequiresAuthentication';
 
 // export const getServerSideProps = async (context: AppContext) => {
@@ -59,7 +48,7 @@ const Websites: NextPage = () => {
               spacing={3}
               alignItems="center"
             >
-              <Typography variant="h5" component="h1">
+              <Typography variant="h4" component="h1">
                 Websites ({stacks.length})
               </Typography>
               <Button

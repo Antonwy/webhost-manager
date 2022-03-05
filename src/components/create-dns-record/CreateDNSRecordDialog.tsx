@@ -1,4 +1,4 @@
-import { Add, ZoomInOutlined } from '@mui/icons-material';
+import { Add } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import {
   Button,
@@ -8,31 +8,26 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogContentText,
   Checkbox,
   FormControlLabel,
-  Collapse,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
   SelectChangeEvent,
 } from '@mui/material';
-import { minWidth } from '@mui/system';
 import { useContext, useState } from 'react';
 import { API } from '../../api/API';
 import { CreateDNSRecordInput } from '../../api/requests/cloudflare/createDNSRecord';
-import { CreateWordPressInput } from '../../api/requests/wordpress/createWordpress';
 import { ApiError } from '../../api/responses/apiError';
-import { DNSZone } from '../../models/dns_zone';
+import DNSZone from '../../models/dns_zone';
 import { ReloadRecordsContext } from '../../pages/dns';
-import { ReloadWebsitesContext } from '../../pages/websites';
 import { useSnackbar } from '../SnackbarProvider';
 
 type CreateDNSRecordModalProps = {
   open: boolean;
   close: () => void;
-  zone: DNSZone;
+  zone?: DNSZone;
 };
 
 const DNSRecordTypes = [
@@ -90,6 +85,8 @@ const CreateDNSRecordModal: React.FC<CreateDNSRecordModalProps> = ({
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!zone) return snackbar.error('Please select a zone!');
+
     setLoading(true);
 
     try {
@@ -139,7 +136,7 @@ const CreateDNSRecordModal: React.FC<CreateDNSRecordModalProps> = ({
               <TextField
                 name="name"
                 label="Name"
-                placeholder={zone.name}
+                placeholder={zone?.name ?? 'Loading zone...'}
                 value={formValues.name}
                 onChange={handleInputChange}
                 required

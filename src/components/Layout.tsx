@@ -1,23 +1,6 @@
 import styled from '@emotion/styled';
-import {
-  Dns,
-  Home,
-  Menu,
-  Person,
-  PowerSettingsNew,
-  Public,
-  Search,
-} from '@mui/icons-material';
-import {
-  AppBar,
-  Box,
-  Drawer,
-  IconButton,
-  List,
-  Stack,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { Dns, Home, Person, Public, Settings } from '@mui/icons-material';
+import { AppBar, Box, Drawer, List, Toolbar, Typography } from '@mui/material';
 import Image from 'next/image';
 import * as React from 'react';
 import { useState } from 'react';
@@ -25,8 +8,7 @@ import DrawerItem, { DrawerItemProps } from './side-drawer/DrawerItem';
 import UserContainer from './UserContainer';
 import logo from '../assets/logo.svg';
 import { useTheme } from '@mui/system';
-import { API } from '../api/API';
-import { useRouter } from 'next/router';
+import TopToolbar from './top-toolbar/TopToolbar';
 
 export const drawerWidth = 300;
 
@@ -43,29 +25,23 @@ const PaddedUserContainer = styled.div`
   padding-top: 26px;
 `;
 
-const drawerItems: DrawerItemProps[] = [
+const generalDrawerItems: DrawerItemProps[] = [
   { text: 'Home', icon: Home, route: '/' },
   { text: 'Websites', icon: Public, route: '/websites' },
   { text: 'DNS', icon: Dns, route: '/dns' },
 ];
 
+const settingsDrawerItems: DrawerItemProps[] = [
+  { text: 'Account', icon: Person, route: '/account' },
+  { text: 'Settings', icon: Settings, route: '/settings' },
+];
+
 const Layout: React.FC = (props) => {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  };
-
-  const handleSignOut = async () => {
-    try {
-      const res = await API.signOut();
-      console.log(res);
-      router.push('/auth');
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const drawer = (
@@ -85,10 +61,19 @@ const Layout: React.FC = (props) => {
         <UserContainer />
       </PaddedUserContainer>
 
-      <MenuHeadline variant="body1">General</MenuHeadline>
-
       <List>
-        {drawerItems.map((p: DrawerItemProps) => (
+        <MenuHeadline variant="body1">General</MenuHeadline>
+        {generalDrawerItems.map((p: DrawerItemProps) => (
+          <DrawerItem
+            key={p.text}
+            text={p.text}
+            icon={p.icon}
+            route={p.route}
+          />
+        ))}
+
+        <MenuHeadline variant="body1">Settings</MenuHeadline>
+        {settingsDrawerItems.map((p: DrawerItemProps) => (
           <DrawerItem
             key={p.text}
             text={p.text}
@@ -113,32 +98,7 @@ const Layout: React.FC = (props) => {
         }}
         elevation={0}
       >
-        <Toolbar sx={{ height: 100, px: 3 }}>
-          <Stack
-            sx={{ width: '100%' }}
-            direction="row"
-            justifyContent="space-between"
-          >
-            <div>
-              <IconButton
-                color="inherit"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { sm: 'none' } }}
-              >
-                <Menu />
-              </IconButton>
-              <IconButton color="inherit" edge="start" sx={{ mr: 2 }}>
-                <Search />
-              </IconButton>
-            </div>
-            <div>
-              <IconButton color="warning" onClick={handleSignOut}>
-                <PowerSettingsNew />
-              </IconButton>
-            </div>
-          </Stack>
-        </Toolbar>
+        <TopToolbar handleDrawerToggle={handleDrawerToggle} />
       </AppBar>
       <Box
         component="nav"

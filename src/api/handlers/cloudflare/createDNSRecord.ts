@@ -10,7 +10,7 @@ export const createDNSRecordHandler = async (
 ): Promise<ApiResponse<DNSRecord>> => {
   try {
     const res = await axios.post<ApiResponse<DNSRecord>>(
-      `/zones/${zoneId}/records`,
+      `/cloudflare/zones/${zoneId}/records`,
       {
         type: config.type,
         name: config.name,

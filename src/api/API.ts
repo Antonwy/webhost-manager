@@ -9,8 +9,13 @@ import Session from 'supertokens-auth-react/recipe/session';
 import { signInHandler } from './handlers/auth/signInHandler';
 import { signOutHandler } from './handlers/auth/signOutHandler';
 import { config } from '../utils/config';
-import useGetDNSZonesHook from './hooks/cloudflare/useGetDNSZonesHook';
+import useGetCloudflareZonesHook from './hooks/cloudflare/useGetCloudflareZonesHook';
 import useUserHook from './hooks/users/useUserHook';
+import updateUserHandler from './handlers/users/updateUser';
+import useGetZonesHook from './hooks/zones/useGetZonesHook';
+import createZoneHandler from './handlers/zones/createZone';
+import removeZoneHandler from './handlers/zones/removeZone';
+import syncZonesHandler from './handlers/zones/syncZones';
 
 axios.defaults.baseURL = `${config.apiUrl}/v1`;
 
@@ -27,11 +32,18 @@ export namespace API {
 
   export const createWordPressSite = createWordpressHandler;
 
-  export const useGetDNSZones = useGetDNSZonesHook;
+  export const useCloudflareZones = useGetCloudflareZonesHook;
   export const useGetDNSRecords = useGetDNSRecordsHook;
   export const createDNSRecord = createDNSRecordHandler;
 
   export const useUser = useUserHook;
+
+  export const updateUser = updateUserHandler;
+
+  export const useZones = useGetZonesHook;
+  export const createZone = createZoneHandler;
+  export const removeZone = removeZoneHandler;
+  export const syncZones = syncZonesHandler;
 
   export const signIn = signInHandler;
   export const signOut = signOutHandler;

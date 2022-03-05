@@ -4,6 +4,9 @@ const nextConfig = {
   experimental: {
     outputStandalone: true,
   },
+  devIndicators: {
+    buildActivity: false,
+  },
 };
 
 module.exports = nextConfig;
