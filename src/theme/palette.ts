@@ -4,26 +4,24 @@ import {
   SimplePaletteColorOptions,
 } from '@mui/material/styles/createPalette';
 
-// ----------------------------------------------------------------------
-
 const createGradient = (color1: string, color2: string) => {
   return `linear-gradient(to bottom, ${color1}, ${color2})`;
 };
 
 // SETUP COLORS
 const PRIMARY: SimplePaletteColorOptions = {
-  lighter: '#C8FACD',
-  light: '#5BE584',
-  main: '#00AB55',
-  dark: '#007B55',
-  darker: '#005249',
+  lighter: 'red',
+  light: '#9A7CF3',
+  main: '#7f5af0',
+  dark: '#7352DA',
+  darker: 'red',
 };
 const SECONDARY: SimplePaletteColorOptions = {
-  lighter: '#D6E4FF',
-  light: '#84A9FF',
-  main: '#3366FF',
-  dark: '#1939B7',
-  darker: '#091A7A',
+  lighter: 'green',
+  light: '#30C587',
+  main: '#2cb67d',
+  dark: '#28A470',
+  darker: 'green',
 };
 const INFO: SimplePaletteColorOptions = {
   lighter: '#D0F2FF',
@@ -33,24 +31,24 @@ const INFO: SimplePaletteColorOptions = {
   darker: '#04297A',
 };
 const SUCCESS: SimplePaletteColorOptions = {
-  lighter: '#E9FCD4',
-  light: '#AAF27F',
-  main: '#54D62C',
-  dark: '#229A16',
-  darker: '#08660D',
+  lighter: 'green',
+  light: '#30C587',
+  main: '#2cb67d',
+  dark: '#28A470',
+  darker: 'green',
 };
 const WARNING: SimplePaletteColorOptions = {
   lighter: '#FFF7CD',
-  light: '#FFE16A',
-  main: '#FFC107',
-  dark: '#B78103',
+  light: '#fff64f',
+  main: '#FCAF58',
+  dark: '#c79400',
   darker: '#7A4F01',
 };
 const ERROR: SimplePaletteColorOptions = {
   lighter: '#FFE7D9',
-  light: '#FFA48D',
-  main: '#FF4842',
-  dark: '#B72136',
+  light: '#ff616f',
+  main: '#FF4252',
+  dark: '#c4001d',
   darker: '#7A0C2E',
 };
 
@@ -92,7 +90,7 @@ const CHART_COLORS = {
 };
 
 const COMMON = {
-  common: { black: '#000', white: '#fff' },
+  common: { black: '#263238', white: '#fff' },
   primary: { ...PRIMARY, contrastText: '#fff' },
   secondary: { ...SECONDARY, contrastText: '#fff' },
   info: { ...INFO, contrastText: '#fff' },
@@ -114,6 +112,7 @@ const COMMON = {
   },
 };
 
+export type PaletteKey = keyof PaletteOptions;
 const palette: {
   light: PaletteOptions;
   dark: PaletteOptions;

@@ -1,4 +1,4 @@
-import { Delete, DeleteTwoTone } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
 import { Button, IconButton, Popover, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';

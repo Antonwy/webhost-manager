@@ -15,7 +15,17 @@ import { API } from '../../api/API';
 import { CreateWordPressInput } from '../../api/requests/wordpress/createWordpress';
 import { ApiError } from '../../api/responses/apiError';
 import { ReloadWebsitesContext } from '../../pages/websites';
+import DomainInput from '../DomainInput';
 import { useSnackbar } from '../SnackbarProvider';
+import ApplicationTemplateContainer, {
+  ApplicationTemplateContainerProps,
+} from './ApplicationTemplateContainer';
+import {
+  faWordpress,
+  faNodeJs,
+  faPhp,
+} from '@fortawesome/free-brands-svg-icons';
+import { ApplicationTemplate } from '../../models/application_template';
 
 type CreateWebsiteModalProps = {
   open: boolean;
@@ -27,7 +37,26 @@ const defaultValues: CreateWordPressInput = {
   url: '',
   dbUsername: 'admin',
   dbPassword: '',
+  applicationType: 'wordpress',
 };
+
+const applications = [
+  {
+    name: 'WordPress',
+    icon: faWordpress,
+    type: 'wordpress',
+  },
+  {
+    name: 'NodeJS',
+    icon: faNodeJs,
+    type: 'nodejs',
+  },
+  {
+    name: 'PHP',
+    icon: faPhp,
+    type: 'php',
+  },
+];
 
 const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
   open,
@@ -35,6 +64,8 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
 }) => {
   const [formValues, setFormValues] = useState(defaultValues);
   const [loading, setLoading] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(true);
+  const [applicationType, setApplicationType] = useState('wordpress');
   const reloadWebsites = useContext(ReloadWebsitesContext);
   const snackbar = useSnackbar();
 
@@ -46,8 +77,18 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
     });
   };
 
+  const handleDomainChange = (domain: string) => {
+    console.log(domain);
+    setFormValues({
+      ...formValues,
+      url: domain,
+    });
+  };
+
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!canSubmit) return;
+
     setLoading(true);
 
     try {
@@ -71,12 +112,37 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
     setFormValues(defaultValues);
   };
 
+  const handleApplicationTemplateClick = (type: string) =>
+    setApplicationType(type);
+
   return (
     <Dialog open={open} onClose={close}>
       <form onSubmit={onSubmit}>
         <DialogTitle>Create Website</DialogTitle>
         <DialogContent sx={{ mt: 2, pt: 1 }}>
           <Stack style={{ marginTop: 6 }} spacing={2}>
+            <Stack
+              direction="row"
+              sx={{
+                pb: 2,
+                pt: 0.5,
+                pl: 0.5,
+                display: 'block',
+                overflow: 'auto',
+                width: '100%',
+                whiteSpace: 'nowrap',
+              }}
+              spacing={1.5}
+            >
+              {applications.map((app) => (
+                <ApplicationTemplateContainer
+                  key={app.name}
+                  onClick={() => handleApplicationTemplateClick(app.type)}
+                  selected={applicationType === app.type}
+                  {...app}
+                />
+              ))}
+            </Stack>
             <TextField
               name="name"
               label="Name"
@@ -85,14 +151,18 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
               onChange={handleInputChange}
               required
             />
-            <TextField
+            <DomainInput
+              onChange={handleDomainChange}
+              setCanSubmit={setCanSubmit}
+            />
+            {/* <TextField
               name="url"
               label="URL"
               placeholder="antonwy.me"
               value={formValues.url}
               onChange={handleInputChange}
               required
-            />
+            /> */}
             <DialogContentText variant="body1" component="p">
               Database Info:
             </DialogContentText>
@@ -125,8 +195,9 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
             loadingPosition="start"
             startIcon={<Add />}
             loading={loading}
-            type="submit"
+            type={'submit'}
             variant="contained"
+            disabled={!canSubmit}
           >
             Create
           </LoadingButton>

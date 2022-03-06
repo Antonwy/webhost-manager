@@ -1,6 +1,7 @@
 import { Menu, PowerSettingsNew, Search } from '@mui/icons-material';
 import {
   Avatar,
+  Box,
   Button,
   ButtonBase,
   IconButton,
@@ -11,7 +12,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { API } from '../../api/API';
 import Link from '../Link';
-import DomainSelect from './DomainSelect';
+import ZoneSelect from './ZoneSelect';
 
 type TopToolbarProps = {
   handleDrawerToggle: () => void;
@@ -51,7 +52,9 @@ const TopToolbar: React.FC<TopToolbarProps> = ({ handleDrawerToggle }) => {
           </IconButton>
         </div>
         <Stack direction="row" spacing={1.5} alignItems="center">
-          <DomainSelect />
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <ZoneSelect />
+          </Box>
 
           <ButtonBase
             href="/account"

@@ -1,8 +1,10 @@
 import { Sync } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 import {
   Button,
   Card,
   Checkbox,
+  CircularProgress,
   Divider,
   Grid,
   Stack,
@@ -19,6 +21,7 @@ const SettingsCloudflareTab: React.FC = () => {
   const { zones: cloudflareZones } = API.useCloudflareZones();
   const { zones, reload: reloadZones } = API.useZones();
   const [zoneLoading, setZoneLoading] = useState<string>();
+  const [syncingZones, setSyncingZones] = useState(false);
   const snackbar = useSnackbar();
 
   const handleCheckedChange = async ({
@@ -59,12 +62,27 @@ const SettingsCloudflareTab: React.FC = () => {
     setZoneLoading(undefined);
   };
 
+  const syncZones = async (): Promise<void> => {
+    try {
+      setSyncingZones(true);
+      await API.syncZones();
+
+      await reloadZones();
+      snackbar.success('Successfully synced zones!');
+    } catch (error) {
+      if (error instanceof ApiError) snackbar.error(error.message);
+      snackbar.error('Failed syncing zones!');
+    }
+
+    setSyncingZones(false);
+  };
+
   const isChecked = (zone: CloudflareDNSZone): boolean => {
     return zones.filter((z) => z.id === zone.id).length > 0;
   };
 
   return (
-    <Grid container spacing={3} sx={{ p: 0, pb: 4, width: '100%' }}>
+    <Grid container spacing={4} sx={{ p: 0, pb: 4, width: '100%' }}>
       <Grid item xs={12} md={4}>
         <Typography variant="subtitle1">DNS Zones</Typography>
         <Typography variant="caption">
@@ -81,21 +99,31 @@ const SettingsCloudflareTab: React.FC = () => {
               'Original Name Server': zone.original_name_servers.join(', '),
             };
 
+            const checked = isChecked(zone);
+            const loading = zoneLoading === zone.id;
+
             return (
               <Card sx={{ px: 3, pt: 2, pb: 3 }} key={zone.id}>
                 <Stack direction="row" spacing={2} alignItems="start">
                   <Checkbox
                     id={zone.id}
-                    checked={isChecked(zone)}
+                    checked={checked}
                     onChange={handleCheckedChange}
                     inputProps={{ 'aria-label': 'controlled' }}
                   />
-                  <Stack sx={{ flexGrow: 2, pt: 1 }}>
+
+                  <Stack
+                    sx={{ flexGrow: 2, pt: 1, opacity: checked ? 1.0 : 0.5 }}
+                  >
                     <Stack direction="row" justifyContent="space-between">
                       <Typography sx={{ mb: 1 }} variant="subtitle1">
                         {zone.name}
                       </Typography>
-                      <Sync color="success" />
+                      {loading ? (
+                        <CircularProgress size={20} />
+                      ) : (
+                        <Sync color="success" />
+                      )}
                     </Stack>
                     <Stack
                       divider={<Divider />}
@@ -138,9 +166,15 @@ const SettingsCloudflareTab: React.FC = () => {
         </Typography>
       </Grid>
       <Grid item xs={12} md={8}>
-        <Button variant="contained" startIcon={<Sync />}>
+        <LoadingButton
+          loading={syncingZones}
+          onClick={syncZones}
+          variant="contained"
+          color="secondary"
+          startIcon={<Sync />}
+        >
           Sync
-        </Button>
+        </LoadingButton>
       </Grid>
     </Grid>
   );

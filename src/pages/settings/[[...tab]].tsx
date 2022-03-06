@@ -28,19 +28,17 @@ const tabs: TabsType = {
 const SettingsPage: NextPage = () => {
   return (
     <RequiresAuthentication>
-      <Layout>
-        <Stack spacing={2}>
-          <Typography variant="h4" component="h1">
-            Settings
-          </Typography>
+      <Stack spacing={2}>
+        <Typography variant="h4" component="h1">
+          Settings
+        </Typography>
 
-          <RouterTabs
-            tabs={tabs}
-            baseRoute={'/settings'}
-            defaultTab={'general'}
-          />
-        </Stack>
-      </Layout>
+        <RouterTabs
+          tabs={tabs}
+          baseRoute={'/settings'}
+          defaultTab={'general'}
+        />
+      </Stack>
     </RequiresAuthentication>
   );
 };

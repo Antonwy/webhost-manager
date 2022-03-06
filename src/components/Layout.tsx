@@ -9,6 +9,8 @@ import UserContainer from './UserContainer';
 import logo from '../assets/logo.svg';
 import { useTheme } from '@mui/system';
 import TopToolbar from './top-toolbar/TopToolbar';
+import { useRouter } from 'next/router';
+import ZoneSelect from './top-toolbar/ZoneSelect';
 
 export const drawerWidth = 300;
 
@@ -36,13 +38,19 @@ const settingsDrawerItems: DrawerItemProps[] = [
   { text: 'Settings', icon: Settings, route: '/settings' },
 ];
 
+const pagesWithoutLayout = ['/auth'];
+
 const Layout: React.FC = (props) => {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  if (pagesWithoutLayout.filter((p) => router.asPath.startsWith(p)).length > 0)
+    return <div>{props.children}</div>;
 
   const drawer = (
     <Box sx={{ padding: 3, paddingTop: 2 }}>
@@ -60,6 +68,10 @@ const Layout: React.FC = (props) => {
       <PaddedUserContainer>
         <UserContainer />
       </PaddedUserContainer>
+
+      <Box sx={{ display: { xs: 'block', sm: 'none' }, mt: 3, width: '100%' }}>
+        <ZoneSelect />
+      </Box>
 
       <List>
         <MenuHeadline variant="body1">General</MenuHeadline>

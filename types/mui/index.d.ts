@@ -3,6 +3,7 @@ import {
   SimplePaletteColorOptions,
   PaletteColorOptions,
 } from '@mui/material/styles/createPalette';
+import { CustomShadow } from '../../src/theme/shadows';
 
 // declare module '@mui/material/styles' {
 //   interface PaletteOptions {
@@ -32,6 +33,10 @@ declare module '@mui/material/styles/createPalette' {
 
 declare module '@mui/material/styles/createTheme' {
   interface ThemeOptions {
+    customShadows?: CustomShadow;
+  }
+
+  interface Theme {
     customShadows?: CustomShadow;
   }
 }

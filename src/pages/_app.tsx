@@ -18,6 +18,7 @@ import EmailPassword from 'supertokens-auth-react/recipe/emailpassword';
 import Session from 'supertokens-auth-react/recipe/session';
 import { config } from '../utils/config';
 import SnackbarProvider from '../components/SnackbarProvider';
+import Layout from '../components/Layout';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -54,7 +55,9 @@ export default function MyApp(props: MyAppProps) {
         <CssBaseline />
         <NextNProgress color={t.palette.primary.main} />
         <SnackbarProvider>
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </SnackbarProvider>
       </ThemeProvider>
     </CacheProvider>

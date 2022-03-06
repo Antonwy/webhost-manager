@@ -1,11 +1,25 @@
-// ----------------------------------------------------------------------
+import { Grow, Theme } from '@mui/material';
+import { TransitionProps } from '@mui/material/transitions';
+import React from 'react';
 
-export default function Dialog(theme) {
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Grow ref={ref} {...props} />;
+});
+
+const Dialog = (theme: Theme) => {
   return {
     MuiDialog: {
+      defaultProps: {
+        TransitionComponent: Transition,
+      },
       styleOverrides: {
         paper: {
-          boxShadow: theme.customShadows.dialog,
+          boxShadow: theme.customShadows?.dialog,
           '&.MuiPaper-rounded': {
             borderRadius: Number(theme.shape.borderRadius) * 2,
           },
@@ -39,8 +53,6 @@ export default function Dialog(theme) {
     MuiDialogContent: {
       styleOverrides: {
         root: {
-          borderTop: 0,
-          borderBottom: 0,
           padding: theme.spacing(3),
         },
       },
@@ -48,6 +60,7 @@ export default function Dialog(theme) {
     MuiDialogActions: {
       styleOverrides: {
         root: {
+          background: theme.palette.grey[200],
           '& > :not(:first-of-type)': {
             marginLeft: theme.spacing(1.5),
           },
@@ -55,4 +68,6 @@ export default function Dialog(theme) {
       },
     },
   };
-}
+};
+
+export default Dialog;

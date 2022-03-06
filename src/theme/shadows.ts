@@ -6,7 +6,7 @@ import palette from './palette';
 
 // ----------------------------------------------------------------------
 
-type CustomShadow = {
+export type CustomShadow = {
   z1: string;
   z8: string;
   z12: string;

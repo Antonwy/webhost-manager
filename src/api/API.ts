@@ -16,6 +16,7 @@ import useGetZonesHook from './hooks/zones/useGetZonesHook';
 import createZoneHandler from './handlers/zones/createZone';
 import removeZoneHandler from './handlers/zones/removeZone';
 import syncZonesHandler from './handlers/zones/syncZones';
+import { deleteDNSRecordHandler } from './handlers/cloudflare/deleteDNSRecord';
 
 axios.defaults.baseURL = `${config.apiUrl}/v1`;
 
@@ -35,6 +36,7 @@ export namespace API {
   export const useCloudflareZones = useGetCloudflareZonesHook;
   export const useGetDNSRecords = useGetDNSRecordsHook;
   export const createDNSRecord = createDNSRecordHandler;
+  export const deleteDNSRecord = deleteDNSRecordHandler;
 
   export const useUser = useUserHook;
 

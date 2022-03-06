@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { NextPage } from 'next';
 import Box from '@mui/material/Box';
 import Layout from '../../components/Layout';
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import { Button, Fab, Grid, Stack, Typography } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import CreateWebsiteModal from '../../components/create-website/CreateWebsiteDialog';
 import { API } from '../../api/API';
@@ -34,45 +34,38 @@ const Websites: NextPage = () => {
 
   return (
     <RequiresAuthentication>
-      <Layout>
-        <ReloadWebsitesContext.Provider value={reload}>
-          <Box
-            sx={{
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <Stack
-              sx={{ mb: 4 }}
-              direction="row"
-              spacing={3}
-              alignItems="center"
+      <ReloadWebsitesContext.Provider value={reload}>
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Stack sx={{ mb: 4 }} direction="row" spacing={3} alignItems="center">
+            <Typography variant="h4" component="h1">
+              Websites ({stacks.length})
+            </Typography>
+            <Fab
+              size="medium"
+              color="secondary"
+              onClick={handleOpenCreateModal}
             >
-              <Typography variant="h4" component="h1">
-                Websites ({stacks.length})
-              </Typography>
-              <Button
-                onClick={handleOpenCreateModal}
-                startIcon={<Add />}
-                variant="contained"
-              >
-                Create
-              </Button>
-              <CreateWebsiteModal
-                open={openCreateModal}
-                close={handleCloseCreateModal}
-              />
-            </Stack>
-            <Grid container spacing={2} sx={{ width: '100%' }}>
-              {stacks.map((stack) => (
-                <Grid key={stack.id} item>
-                  <StackItem stack={stack}></StackItem>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </ReloadWebsitesContext.Provider>
-      </Layout>
+              <Add />
+            </Fab>
+            <CreateWebsiteModal
+              open={openCreateModal}
+              close={handleCloseCreateModal}
+            />
+          </Stack>
+          <Grid container spacing={2} sx={{ width: '100%' }}>
+            {stacks.map((stack) => (
+              <Grid key={stack.id} item>
+                <StackItem stack={stack}></StackItem>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </ReloadWebsitesContext.Provider>
     </RequiresAuthentication>
   );
 };

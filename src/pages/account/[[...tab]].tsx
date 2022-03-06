@@ -30,12 +30,11 @@ const tabs: TabsType = {
 const Account: NextPage = () => {
   return (
     <RequiresAuthentication>
-      <Layout>
-        <Stack spacing={2}>
-          <Typography variant="h4" component="h1">
-            Account
-          </Typography>
-          {/* <Breadcrumbs
+      <Stack spacing={2}>
+        <Typography variant="h4" component="h1">
+          Account
+        </Typography>
+        {/* <Breadcrumbs
             sx={{
               fontSize: 14,
             }}
@@ -52,9 +51,8 @@ const Account: NextPage = () => {
               Account Settings
             </Typography>
           </Breadcrumbs> */}
-          <RouterTabs tabs={tabs} defaultTab="general" baseRoute="/account" />
-        </Stack>
-      </Layout>
+        <RouterTabs tabs={tabs} defaultTab="general" baseRoute="/account" />
+      </Stack>
     </RequiresAuthentication>
   );
 };
