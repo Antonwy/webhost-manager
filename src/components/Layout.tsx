@@ -12,7 +12,7 @@ import TopToolbar from './top-toolbar/TopToolbar';
 import { useRouter } from 'next/router';
 import ZoneSelect from './top-toolbar/ZoneSelect';
 
-export const drawerWidth = 300;
+export const drawerWidth = 280;
 
 const MenuHeadline = styled(Typography)`
   font-weight: 500;
@@ -69,7 +69,7 @@ const Layout: React.FC = (props) => {
         <UserContainer />
       </PaddedUserContainer>
 
-      <Box sx={{ display: { xs: 'block', sm: 'none' }, mt: 3, width: '100%' }}>
+      <Box sx={{ display: { sm: 'block', md: 'none' }, mt: 3, width: '100%' }}>
         <ZoneSelect />
       </Box>
 
@@ -102,9 +102,9 @@ const Layout: React.FC = (props) => {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
           height: 100,
-          ml: { sm: `${drawerWidth}px` },
+          ml: { md: `${drawerWidth}px` },
           backgroundColor: 'transparent',
           color: theme.palette.grey[700],
         }}
@@ -114,7 +114,7 @@ const Layout: React.FC = (props) => {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
       >
         <Drawer
           variant="temporary"
@@ -124,7 +124,7 @@ const Layout: React.FC = (props) => {
             keepMounted: true,
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block', md: 'none' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
@@ -136,7 +136,7 @@ const Layout: React.FC = (props) => {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
+            display: { xs: 'none', md: 'block' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
@@ -153,7 +153,7 @@ const Layout: React.FC = (props) => {
           flexGrow: 1,
           pl: 3,
           pr: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar sx={{ height: 100 }} />

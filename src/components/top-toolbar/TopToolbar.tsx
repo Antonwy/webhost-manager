@@ -43,7 +43,7 @@ const TopToolbar: React.FC<TopToolbarProps> = ({ handleDrawerToggle }) => {
             color="inherit"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { md: 'none' } }}
           >
             <Menu />
           </IconButton>
@@ -52,7 +52,7 @@ const TopToolbar: React.FC<TopToolbarProps> = ({ handleDrawerToggle }) => {
           </IconButton>
         </div>
         <Stack direction="row" spacing={1.5} alignItems="center">
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             <ZoneSelect />
           </Box>
 

@@ -30,7 +30,7 @@ const Websites: NextPage = () => {
   const handleOpenCreateModal = () => setOpenCreateModal(true);
   const handleCloseCreateModal = () => setOpenCreateModal(false);
 
-  const { stacks, loading, error, reload } = API.useGetStacks();
+  const { stacks, reload } = API.useGetStacks();
 
   return (
     <RequiresAuthentication>
@@ -59,7 +59,7 @@ const Websites: NextPage = () => {
           </Stack>
           <Grid container spacing={2} sx={{ width: '100%' }}>
             {stacks.map((stack) => (
-              <Grid key={stack.id} item>
+              <Grid key={stack.id} item xs={12} sm={6} lg={4} xl={3}>
                 <StackItem stack={stack}></StackItem>
               </Grid>
             ))}

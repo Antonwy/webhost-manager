@@ -1,3 +1,4 @@
+import { Add } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -133,6 +134,8 @@ const DomainInput: React.FC<DomainInputProps> = ({
                     onClick={handleOpenCreateSubdomainModal}
                     sx={{ width: '100%' }}
                     variant="contained"
+                    startIcon={<Add />}
+                    color="secondary"
                   >
                     Create
                   </Button>
