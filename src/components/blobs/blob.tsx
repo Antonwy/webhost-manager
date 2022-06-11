@@ -23,10 +23,10 @@ export const SimpleBlob: React.FC<SimpleBlobProps> = ({ color, sx }) => {
 };
 
 export type ChildPosition = {
-  top?: number;
-  left?: number;
-  right?: number;
-  bottom?: number;
+  top?: number | string;
+  left?: number | string;
+  right?: number | string;
+  bottom?: number | string;
 };
 
 type BackgroundBlobProps = {

@@ -17,12 +17,10 @@ import {
   SelectChangeEvent,
   Typography,
 } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { API } from '../../api/API';
-import { CreateDNSRecordInput } from '../../api/requests/cloudflare/createDNSRecord';
 import { ApiError } from '../../api/responses/apiError';
 import { DNSRecord } from '../../models/dns_record';
-import { ReloadRecordsContext } from '../../pages/dns';
 import { useSnackbar } from '../SnackbarProvider';
 import { uniq } from 'lodash';
 import DNSZone from '../../models/dns_zone';
@@ -54,7 +52,8 @@ const CreateSubdomainDialog: React.FC<CreateSubdomainModalProps> = ({
   };
 
   useEffect(() => {
-    if (!formValues.ip && availableIps) {
+    if (!formValues.ip && availableIps?.length > 0) {
+      console.log(availableIps);
       setFormValues({
         ...formValues,
         ip: availableIps[0],
@@ -63,7 +62,6 @@ const CreateSubdomainDialog: React.FC<CreateSubdomainModalProps> = ({
   }, [records]);
 
   const [formValues, setFormValues] = useState(defaultValues);
-  console.log(formValues.ip);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

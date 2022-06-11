@@ -92,6 +92,7 @@ const CreateWebsiteModal: React.FC<CreateWebsiteModalProps> = ({
     setLoading(true);
 
     try {
+      console.log(formValues);
       const res = await API.createWordPressSite(formValues);
       reloadWebsites();
       handleClose();

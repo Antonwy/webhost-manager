@@ -27,7 +27,9 @@ export const ReloadWebsitesContext = createContext<ReloadWebsitesContextType>(
 
 const Websites: NextPage = () => {
   const [openCreateModal, setOpenCreateModal] = React.useState(false);
-  const handleOpenCreateModal = () => setOpenCreateModal(true);
+  const handleOpenCreateModal = () => {
+    return setOpenCreateModal(true);
+  };
   const handleCloseCreateModal = () => setOpenCreateModal(false);
 
   const { stacks, reload } = API.useGetStacks();

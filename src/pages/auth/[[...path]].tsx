@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import SuperTokens from 'supertokens-auth-react';
 import { redirectToAuth } from 'supertokens-auth-react/recipe/emailpassword';
-import { Box, Card, Link, Stack, TextField, Typography } from '@mui/material';
-import SignInImage from '../../assets/signin.webp';
+import {
+  Box,
+  Card,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import SignInImage from '../../assets/authentication.png';
 import Image from 'next/image';
 import Logo from '../../assets/logo.svg';
 import { LoadingButton } from '@mui/lab';
@@ -12,6 +20,7 @@ import { useRouter } from 'next/router';
 import { VpnKey } from '@mui/icons-material';
 import { useSnackbar } from '../../components/SnackbarProvider';
 import { ApiError } from '../../api/responses/apiError';
+import { BackgroundBlob, SimpleBlob } from '../../components/blobs/blob';
 
 const defaultValues: SignInInput = {
   email: '',
@@ -24,6 +33,7 @@ const Auth = () => {
   const router = useRouter();
   const { redirectToPath } = router.query;
   const snackbar = useSnackbar();
+  const theme = useTheme();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -75,7 +85,7 @@ const Auth = () => {
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
-          bgcolor: '#8095ff',
+          bgcolor: 'primary.light',
         }}
       >
         <Box
@@ -90,13 +100,19 @@ const Auth = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <Box
+          <BackgroundBlob
             sx={{
-              width: '50%',
+              width: '100%',
+              maxWidth: 500,
+            }}
+            blob={<SimpleBlob color={theme.palette.primary.main} />}
+            position={{
+              top: -120,
+              left: -10,
             }}
           >
             <Image layout="responsive" src={SignInImage} alt="signin image" />
-          </Box>
+          </BackgroundBlob>
         </Box>
         <Box
           sx={{
@@ -152,6 +168,7 @@ const Auth = () => {
                   loading={false}
                   type="submit"
                   variant="contained"
+                  color="secondary"
                   sx={{ height: 50 }}
                 >
                   SIGN IN

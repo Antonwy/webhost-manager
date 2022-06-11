@@ -1,4 +1,4 @@
-import { Grow, Theme } from '@mui/material';
+import { Fade, Theme } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import React from 'react';
 
@@ -8,7 +8,7 @@ const Transition = React.forwardRef(function Transition(
   },
   ref: React.Ref<unknown>
 ) {
-  return <Grow ref={ref} {...props} />;
+  return <Fade ref={ref} {...props} />;
 });
 
 const Dialog = (theme: Theme) => {
